@@ -1,19 +1,12 @@
 import React from "react";
-import {
-  ImageBackground,
-  Image,
-  StyleSheet,
-  StatusBar,
-  Dimensions
-} from "react-native";
+import { ImageBackground, Image, StyleSheet, StatusBar, Dimensions } from "react-native";
 import { Block, Button, Text, theme } from "galio-framework";
-
-const { height, width } = Dimensions.get("screen");
-
 import argonTheme from "../constants/Theme";
 import Images from "../constants/Images";
 
-class Onboarding extends React.Component {
+const { height, width } = Dimensions.get("screen");
+
+class Onboarding extends React.Component { 
   render() {
     const { navigation } = this.props;
 
@@ -47,7 +40,7 @@ class Onboarding extends React.Component {
                 <Button
                   style={styles.button}
                   color={argonTheme.COLORS.SUCCESS}
-                  onPress={() => navigation.navigate("App")}
+                  onPress={() => navigation.navigate("App", {screen: 'Login'})}
                   textStyle={{ color: argonTheme.COLORS.WHITE }}
                 >
                   LOGIN

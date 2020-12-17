@@ -1,12 +1,7 @@
 import React from "react";
 import { useSafeArea } from "react-native-safe-area-context";
-import {
-  ScrollView,
-  StyleSheet,
-  Image
-} from "react-native";
+import { ScrollView, StyleSheet, Image } from "react-native";
 import { Block, Text, theme } from "galio-framework";
-
 import Images from "../constants/Images";
 import { DrawerItem as DrawerCustomItem } from '../components';
 
@@ -50,9 +45,9 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
               <Block style={{ borderColor: "rgba(0,0,0,0.2)", width: '100%', borderWidth: StyleSheet.hairlineWidth }}/>
               <Text color="#8898AA" style={{ marginTop: 16, marginLeft: 8 }}>CONFIGURAÇÕES</Text>
             </Block>
-            <DrawerCustomItem title="Minha conta" navigation={navigation} />
-            <DrawerCustomItem title="Preferências" navigation={navigation} />
-            <DrawerCustomItem title="Termos de uso" navigation={navigation} />
+            <DrawerCustomItem title="Minha conta" navigation={navigation} focused={state.index === 8 ? true : false} />
+            <DrawerCustomItem title="Preferências" navigation={navigation} focused={state.index === 9 ? true : false} />
+            <DrawerCustomItem title="Termos de uso" navigation={navigation} focused={state.index === 10 ? true : false} />
         </ScrollView>
       </Block>
     </Block>

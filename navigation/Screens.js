@@ -1,11 +1,7 @@
 import React from "react";
-import { Easing, Animated, Dimensions } from "react-native";
-
+import { Dimensions } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-import { Block } from "galio-framework";
 
 // screens
 import Home from "../screens/Home";
@@ -13,22 +9,21 @@ import Onboarding from "../screens/Onboarding";
 import Pro from "../screens/Pro";
 import Profile from "../screens/Profile";
 import Register from "../screens/Register";
+import Login from "../screens/Login"
 import Elements from "../screens/Elements";
 import Empresa from "../screens/Empresa";
+
 // drawer
 import CustomDrawerContent from "./Menu";
 
 // header for screens
-import { Icon, Header } from "../components";
-import { argonTheme, tabs } from "../constants";
+import { Header } from "../components";
 import Construction from "../screens/Construction";
 import Cupom from "../screens/Cupom";
 
 const { width } = Dimensions.get("screen");
-
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-const Tab = createBottomTabNavigator();
 
 function ElementsStack(props) {
   return (
@@ -43,7 +38,7 @@ function ElementsStack(props) {
           cardStyle: { backgroundColor: "#F8F9FE" }
         }}
       />
-            <Stack.Screen
+      <Stack.Screen
         name="Pro"
         component={Pro}
         options={{
@@ -81,23 +76,6 @@ function EmpresaStack() {
   );
 }
 
-function ConstructionStack() {
-  return (
-    <Stack.Navigator mode="card" headerMode="screen">
-      <Stack.Screen
-        name="Em breve"
-        component={Construction}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header title="Em breve" navigation={navigation} scene={scene} />
-          ),
-          cardStyle: { backgroundColor: "#F8F9FE" }
-        }}
-      />
-    </Stack.Navigator>
-  );
-}
-
 function CupomStack() {
   return (
     <Stack.Navigator mode="card" headerMode="screen">
@@ -124,32 +102,12 @@ function ProfileStack(props) {
         options={{
           header: ({ navigation, scene }) => (
             <Header
-              transparent
-              white
-              title="Profile"
+              title="Minha conta"
               navigation={navigation}
               scene={scene}
             />
           ),
-          cardStyle: { backgroundColor: "#FFFFFF" },
-          headerTransparent: true
-        }}
-      />
-            <Stack.Screen
-        name="Pro"
-        component={Pro}
-        options={{
-          header: ({ navigation, scene }) => (
-            <Header
-              title=""
-              back
-              white
-              transparent
-              navigation={navigation}
-              scene={scene}
-            />
-          ),
-          headerTransparent: true
+          cardStyle: { backgroundColor: "#FFFFFF" }
         }}
       />
     </Stack.Navigator>
@@ -196,6 +154,9 @@ function HomeStack(props) {
 }
 
 export default function OnboardingStack(props) {
+  const validate = async() => await isAuthenticated();
+  validate ? console.log('hi') : console.log('bye');  
+
   return (
     <Stack.Navigator mode="card" headerMode="none">
       <Stack.Screen
@@ -242,11 +203,17 @@ function AppStack(props) {
       initialRouteName="Home"
     >
       <Drawer.Screen name="Home" component={HomeStack} />
-      <Drawer.Screen name="Empresa" component={EmpresaStack} />      
+      <Drawer.Screen name="Empresa" component={EmpresaStack} />
+      <Drawer.Screen name="Produtos" component={HomeStack} />
       <Drawer.Screen name="Cupom" component={CupomStack} />
+      <Drawer.Screen name="Medicacoes" component={HomeStack} />
+      <Drawer.Screen name="Lembretes" component={HomeStack} />
+      <Drawer.Screen name="Vacinas" component={HomeStack} />
+      <Drawer.Screen name="Contato" component={HomeStack} />
       <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="Account" component={Register} />
       <Drawer.Screen name="Elements" component={ElementsStack} />
+      <Drawer.Screen name="Login" component={Login} />
     </Drawer.Navigator>
   );
 }
