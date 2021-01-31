@@ -8,6 +8,15 @@
       "ios",
       "android"
     ],
+    "ios": {
+      "bundleIdentifier": "com.onedev.farmavida",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.onedev.farmavida",
+      "versionCode": 1
+    }, 
+    "owner": "dcaaraujo",   
     "version": "1.5.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,9 +31,6 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "web": {
       "build": {
         "babel": {
@@ -34,6 +40,6 @@
         }
       }
     },
-    "description": "Argon React Native, based on Argon Design System. Coded by Creative Tim"
+    "description": "Descubra novos artigos relacionados a área da saúde e aproveite nossas promoções"
   }
 }

@@ -103,6 +103,8 @@ function ProfileStack(props) {
           header: ({ navigation, scene }) => (
             <Header
               title="Minha conta"
+              transparent
+              white
               navigation={navigation}
               scene={scene}
             />
@@ -153,10 +155,7 @@ function HomeStack(props) {
   );
 }
 
-export default function OnboardingStack(props) {
-  const validate = async() => await isAuthenticated();
-  validate ? console.log('hi') : console.log('bye');  
-
+export default function OnboardingStack(props) {    
   return (
     <Stack.Navigator mode="card" headerMode="none">
       <Stack.Screen
@@ -167,6 +166,7 @@ export default function OnboardingStack(props) {
         }}
       />
       <Stack.Screen name="App" component={AppStack} />
+      <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
   );
 }
@@ -213,7 +213,6 @@ function AppStack(props) {
       <Drawer.Screen name="Profile" component={ProfileStack} />
       <Drawer.Screen name="Account" component={Register} />
       <Drawer.Screen name="Elements" component={ElementsStack} />
-      <Drawer.Screen name="Login" component={Login} />
     </Drawer.Navigator>
   );
 }

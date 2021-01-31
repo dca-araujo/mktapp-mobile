@@ -1,8 +1,8 @@
 export default [
   {
-    title: 'Ice cream is made with carrageenan …',
+    title: 'Confira os benefícios do consumo de sorvete',
     image: 'https://images.unsplash.com/photo-1516559828984-fb3b99548b21?ixlib=rb-1.2.1&auto=format&fit=crop&w=2100&q=80',
-    cta: 'View article', 
+    cta: 'Veja o artigo', 
     horizontal: true
   },
   {
@@ -21,9 +21,9 @@ export default [
     cta: 'View article' 
   },
   {
-    title: 'Argon is a great free UI packag …',
+    title: 'O estilo de vida saudável e os perigos do alpinismo',
     image: 'https://images.unsplash.com/photo-1482686115713-0fbcaced6e28?fit=crop&w=1947&q=80',
-    cta: 'View article', 
+    cta: 'Veja o artigo', 
     horizontal: true
   },
 ];

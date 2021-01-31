@@ -7,6 +7,17 @@ const Container = styled.View`
   backgroundColor: #F5F5F5;
 `;
 
+const Title = styled.Text`
+  flex: 1;
+  textAlign: left;
+  padding:7px;
+  padding-left:15px;
+  font-weight:bold;
+  font-size:17px;
+  borderBottomColor:#ccc;
+  borderBottomWidth:1px;
+`;
+
 const Logo = styled.Image`
   height: 30%;
   marginBottom: 40px;
@@ -71,4 +82,4 @@ const SignUpLinkText = styled.Text`
   textAlign: center;
 `;
 
-export { Container, Logo, Input, ErrorMessage, Button, ButtonRed, ButtonText, SignUpLink, SignUpLinkText };
+export { Container, Logo, Input, ErrorMessage, Button, ButtonRed, ButtonText, SignUpLink, SignUpLinkText, Title };

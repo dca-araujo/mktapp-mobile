@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, TouchableWithoutFeedback } from "react-native";
+import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Block, Text, theme } from "galio-framework";
@@ -11,9 +11,12 @@ const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
 
 class Profile extends React.Component {
-  handleLogoff = async () => {
-    const result = await logout();
-    result ? this.props.navigation.navigate('Home', {screen: 'Onboarding'}) : console.log('hi');
+  handleLogoff = () => {
+    logout().then(result => {
+      if(result === null) {
+        this.props.navigation.navigate('Onboarding');
+      } 
+    });
   }
 
   render() {
@@ -27,7 +30,7 @@ class Profile extends React.Component {
           >
             <ScrollView
               showsVerticalScrollIndicator={false}
-              style={{ width, marginTop: 30 }}
+              style={{ width, marginTop: 90 }}
             >
               <Block flex style={styles.profileCard}>
                 <Block middle style={styles.avatarContainer}>
@@ -39,10 +42,10 @@ class Profile extends React.Component {
                 <Block flex>
                   <Block middle style={styles.nameInfo}>
                     <Text bold size={28} color="#32325D">
-                      Jessica Jones, 27
+                      Usuário de teste, 27
                     </Text>
                     <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                      San Francisco, USA
+                      2 Filhos, Casado
                     </Text>
                   </Block>
                   <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
@@ -73,7 +76,8 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     padding: 0,
-    zIndex: 1    
+    zIndex: 0,
+    marginTop:-90
   },
   profileBackground: {
     width: width,

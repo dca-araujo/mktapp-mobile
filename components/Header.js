@@ -20,7 +20,7 @@ const BellButton = ({isWhite, style, navigation}) => (
       name="bell"
       color={argonTheme.COLORS[isWhite ? 'WHITE' : 'ICON']}
     />
-    <Block middle style={styles.notify} />
+    {/* <Block middle style={styles.notify} /> */}
   </TouchableOpacity>
 );
 

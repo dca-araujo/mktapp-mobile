@@ -3,10 +3,20 @@ import { ImageBackground, Image, StyleSheet, StatusBar, Dimensions } from "react
 import { Block, Button, Text, theme } from "galio-framework";
 import argonTheme from "../constants/Theme";
 import Images from "../constants/Images";
+import { isAuthenticated } from '../service/auth';
 
 const { height, width } = Dimensions.get("screen");
 
-class Onboarding extends React.Component { 
+export default class Onboarding extends React.Component { 
+    constructor(){
+        super();
+        isAuthenticated().then(result => {
+            if(result !== null) {
+                this.props.navigation.navigate("App");
+            }
+        });
+    }
+
   render() {
     const { navigation } = this.props;
 
@@ -40,7 +50,7 @@ class Onboarding extends React.Component {
                 <Button
                   style={styles.button}
                   color={argonTheme.COLORS.SUCCESS}
-                  onPress={() => navigation.navigate("App", {screen: 'Login'})}
+                  onPress={() => navigation.navigate("Login")}
                   textStyle={{ color: argonTheme.COLORS.WHITE }}
                 >
                   LOGIN
@@ -98,5 +108,3 @@ const styles = StyleSheet.create({
     marginTop: '5%'
   }
 });
-
-export default Onboarding;

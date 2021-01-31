@@ -4,14 +4,13 @@ import { Block, Text,theme } from "galio-framework";
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
 import { ErrorMessage } from '../components/styled';
-import { login, isAuthenticated, logout } from '../service/auth';
+import Loader from "../components/loader";
+import { login } from '../service/auth';
 import api from '../service/api';
-
-
 const { width, height } = Dimensions.get("screen");
 
 class Register extends React.Component {
-  state = { email: '', password: '', error: '' };
+  state = { email: '', password: '', error: '', loading: false };
 
   handleEmailChange = (email) => {
     this.setState({ email });
@@ -30,14 +29,18 @@ class Register extends React.Component {
       this.setState({ error: 'Preencha usuário/senha para continuar' }, () => false);
     } else {
       try {
-        const response = await api.post('auth', {
-          username: this.state.email,
+        const response = await api.post('cliente/auth', {
+          email: this.state.email,
           password: this.state.password,
         });
-        response.data.error === true ? this.setState({ error: response.data.msg }) : login(response.data.token);
-        
-        const validate = await isAuthenticated();
-        validate ? this.props.navigation.navigate("App", {screen: 'Home'}) : '';
+
+        if(response.data.error === true) {
+          this.setState({ error: response.data.msg });
+        } else {
+          login(response.data.token).then(result => {
+            this.props.navigation.navigate("App");
+          });          
+        }
       } catch (_err) {
         this.setState({ error: 'Houve um problema com o login, verifique suas credenciais!' });
       }
@@ -59,9 +62,8 @@ class Register extends React.Component {
               </Block>
               <Block flex>
                 <Block flex={0.17} middle>
-                  <Text color="#FFF" size={14}>
-                    Informe seus dados para acesso
-                  </Text>
+                  <Text color="#FFF" size={18}>Informe seus dados para acesso</Text>
+                  <Loader loading={this.state.loading} />
                 </Block>
                 <Block flex center>
                   <KeyboardAvoidingView
