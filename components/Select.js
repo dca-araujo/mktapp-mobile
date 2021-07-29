@@ -1,11 +1,12 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import ModalDropdown from 'react-native-modal-dropdown';
 import { Block, Text } from 'galio-framework';
-
 import Icon from './Icon';
 import { argonTheme } from '../constants';
+
+const { width } = Dimensions.get("screen");
 
 class DropDown extends React.Component {
   state = {
@@ -21,6 +22,13 @@ class DropDown extends React.Component {
 
   render() {
     const { onSelect, iconName, iconFamily, iconSize, iconColor, color, textStyle, style, ...props } = this.props;
+
+    const drpFrame = (style) => {
+        style.width = width - 60;
+        style.height = this.props.options.length > 4 ? 200 : - 1;
+        style.MarginBottom = -200;
+        return style;
+    }  
 
     const modalStyles = [
       styles.qty,
@@ -38,7 +46,8 @@ class DropDown extends React.Component {
         style={modalStyles}
         onSelect={this.handleOnSelect}
         dropdownStyle={styles.dropdown}
-        dropdownTextStyle={{paddingLeft:16, fontSize:12}}
+        dropdownTextStyle={{paddingLeft:16, fontSize:16}}
+        adjustFrame={style => drpFrame(style)}
         {...props}>
         <Block flex row middle space="between">
           <Text size={12} style={textStyles}>{this.state.value}</Text>
@@ -60,7 +69,7 @@ DropDown.propTypes = {
 
 const styles = StyleSheet.create({
   qty: {
-    width: 100,
+    width: "100%",
     backgroundColor: argonTheme.COLORS.DEFAULT,
     paddingHorizontal: 16,
     paddingTop: 10,
@@ -76,9 +85,7 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   },
   dropdown: {
-    marginTop: 8,
     marginLeft: -16,
-    width: 100,
   },
 });
 

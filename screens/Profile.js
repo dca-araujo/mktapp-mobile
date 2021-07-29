@@ -1,25 +1,21 @@
 import React from "react";
 import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground } from "react-native";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { Block, Text, theme } from "galio-framework";
-import { ButtonRed } from '../components/styled';
-import { Images } from "../constants";
-import { logout } from '../service/auth';
+import { FontAwesome5 } from '@expo/vector-icons'; 
+import { Block, Text, theme, Button, Input } from "galio-framework";
+import { Images, argonTheme } from "../constants";
+import { getCliente } from '../service/auth';
 
 const { width, height } = Dimensions.get("screen");
 const thumbMeasure = (width - 48 - 32) / 3;
 
 class Profile extends React.Component {
-  handleLogoff = () => {
-    logout().then(result => {
-      if(result === null) {
-        this.props.navigation.navigate('Onboarding');
-      } 
-    });
-  }
-
+    state = { loading: false };
+    handleData = (atributo, valor) => {
+        this.setState({[atributo]: valor});
+    };   
+    
   render() {
+    getCliente().then(result => {this.setState(JSON.parse(result))});
     return (
       <Block flex>
         <Block flex>
@@ -40,27 +36,50 @@ class Profile extends React.Component {
                   />
                 </Block>
                 <Block flex>
-                  <Block middle style={styles.nameInfo}>
-                    <Text bold size={28} color="#32325D">
-                      Usuário de teste, 27
-                    </Text>
-                    <Text size={16} color="#32325D" style={{ marginTop: 10 }}>
-                      2 Filhos, Casado
-                    </Text>
-                  </Block>
-                  <Block middle style={{ marginTop: 30, marginBottom: 16 }}>
-                    <Block style={styles.divider} />
-                  </Block>
-                  <ButtonRed onPress={() => this.handleLogoff()}>
-                    <Block flex row>
-                      <Block middle flex={0.1} style={{ marginRight: 5 }}>
-                        <FontAwesomeIcon icon={faSignOutAlt} style={{color:theme.COLORS.WHITE}} size={25} />
-                      </Block>
-                      <Block row center flex={0.9}>                          
-                        <Text style={{color:theme.COLORS.WHITE, fontSize:16}}>Sair</Text>
-                      </Block>
+                    <Block style={{ marginTop: 20 }}>
+                        <Input right placeholder="Nome" value={this.state.nome} color={theme.COLORS.BLACK} iconContent={<FontAwesome5 name="user-circle" size={20} color="rgba(0,0,0,0.5)" />} />
+                        <Input right placeholder="E-mail" value={this.state.email} color={theme.COLORS.BLACK} iconContent={<FontAwesome5 name="at" size={20} color="rgba(0,0,0,0.5)" />} />
                     </Block>
-                  </ButtonRed>
+                    <Block middle style={{ marginVertical: 15 }}>
+                        <Block style={styles.divider} />
+                    </Block>
+                    <Block>
+                        <Input right placeholder="Filhos" value={this.state.filhos} color={theme.COLORS.BLACK} iconContent={<FontAwesome5 name="child" size={20} color="rgba(0,0,0,0.5)" />} />
+                        <Input right placeholder="Histórico" value={this.state.historico} color={theme.COLORS.BLACK} iconContent={<FontAwesome5 name="history" size={20} color="rgba(0,0,0,0.5)" />} />
+                        <Input right placeholder="Nascimento" value={this.state.nascimento} color={theme.COLORS.BLACK} iconContent={<FontAwesome5 name="birthday-cake" size={20} color="rgba(0,0,0,0.5)" />} />
+                        <Input right placeholder="Documento" value={this.state.identidade} color={theme.COLORS.BLACK} iconContent={<FontAwesome5 name="id-card" size={20} color="rgba(0,0,0,0.5)" />} />
+                        <Input right placeholder="Endereço" value={this.state.endereco} color={theme.COLORS.BLACK} iconContent={<FontAwesome5 name="home" size={20} color="rgba(0,0,0,0.5)" />} />
+                        <Input right placeholder="Cidade" value={this.state.cidade} color={theme.COLORS.BLACK} iconContent={<FontAwesome5 name="map-marked" size={20} color="rgba(0,0,0,0.5)" />} />
+                        <Input right placeholder="Telefone" value={this.state.telefone} color={theme.COLORS.BLACK} iconContent={<FontAwesome5 name="phone" size={20} color="rgba(0,0,0,0.5)" />} />
+                    </Block>
+                    <Block flex row style={{ marginTop: 5 }}>
+                        <Block flex={0.5} style={{ paddingHorizontal: 5 }}>
+                            <Button                                
+                                color={this.state.sexo == 'Masculino' ? argonTheme.COLORS.MUTED : argonTheme.COLORS.SECONDARY}
+                                textStyle={{ color: "black", fontSize: 16, fontWeight: "700" }}
+                                style={styles.button}
+                                onPress={ () => {this.handleData("sexo", "Masculino")}}>
+                                Masculino
+                            </Button>
+                        </Block>
+                        <Block flex={0.5} style={{ paddingHorizontal: 5 }}>
+                            <Button
+                                color={this.state.sexo == 'Feminino' ? argonTheme.COLORS.MUTED : argonTheme.COLORS.SECONDARY}
+                                textStyle={{ color: "black", fontSize: 16, fontWeight: "700" }}
+                                style={styles.button}
+                                onPress={ () => {this.handleData("sexo", "Feminino")}}>
+                                Feminino
+                            </Button>
+                        </Block>
+                    </Block>
+                    <Block style={{ marginTop: 15 }}>
+                        <Button
+                            color={argonTheme.COLORS.SUCCESS}
+                            textStyle={{ color: "white", fontSize: 16, fontWeight: "700" }}
+                            style={styles.button}>
+                            Salvar alterações
+                        </Button>
+                    </Block>
                 </Block>
               </Block>
             </ScrollView>
@@ -74,10 +93,16 @@ class Profile extends React.Component {
 const styles = StyleSheet.create({
   profileContainer: {
     width: width,
-    height: height,
     padding: 0,
     zIndex: 0,
     marginTop:-90
+  },
+  button: {
+    width: "100%",
+    height: theme.SIZES.BASE * 3,
+    shadowRadius: 0,
+    shadowOpacity: 0,
+    marginRight: 5
   },
   profileBackground: {
     width: width,

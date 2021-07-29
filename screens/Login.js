@@ -37,7 +37,7 @@ class Register extends React.Component {
         if(response.data.error === true) {
           this.setState({ error: response.data.msg });
         } else {
-          login(response.data.token).then(result => {
+          login(response.data).then(result => {
             this.props.navigation.navigate("App");
           });          
         }
@@ -118,7 +118,7 @@ class Register extends React.Component {
                           ENTRAR
                         </Text>
                       </Button>
-                      <Button color="primary" style={styles.button} onPress={this.handleCreateAccountPress}>
+                      <Button color="default" style={styles.button} onPress={this.handleCreateAccountPress}>
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                           CADASTRE-SE
                         </Text>

@@ -2,8 +2,10 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, Linking } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
-
+import { logout } from '../service/auth';
 import argonTheme from "../constants/Theme";
 
 class DrawerItem extends React.Component {
@@ -98,8 +100,8 @@ class DrawerItem extends React.Component {
           size={14}
           color={focused ? "white" : "rgba(0,0,0,0.5)"}
         />);
-      case "Log out":
-        return <Icon />;
+      case "Logout":
+        return (<FontAwesomeIcon icon={faSignOutAlt} size={14} color={"rgba(0,0,0,0.5)"}/>);
       default:
         return null;
     }
@@ -125,7 +127,15 @@ class DrawerItem extends React.Component {
 
       case 'Preferências':
         navigation.navigate('Elements');
-        break;        
+        break;
+        
+      case 'Logout':
+        logout().then(result => {
+            if(result === null) {
+                navigation.navigate('Onboarding');
+            } 
+          });
+        break;  
     
       default:
         navigation.navigate('Construction');

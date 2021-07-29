@@ -10,7 +10,7 @@ import {
   TouchableWithoutFeedback,
   Alert
 } from "react-native";
-import { Block, Checkbox, Text, theme } from "galio-framework";
+import { Block, Checkbox, Text } from "galio-framework";
 import { ErrorMessage } from '../components/styled';
 import { Button, Icon, Input } from "../components";
 import { Images, argonTheme } from "../constants";
@@ -187,7 +187,7 @@ class Register extends React.Component {
                       </Button>
                     </Block>
                     <Block middle>
-                      <Button color="primary" style={styles.createButton} onPress={this.handleSignInPress}>
+                      <Button color="default" style={styles.createButton} onPress={this.handleSignInPress}>
                         <Text bold size={14} color={argonTheme.COLORS.WHITE}>
                           CADASTRAR
                         </Text>

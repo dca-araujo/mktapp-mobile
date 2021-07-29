@@ -48,6 +48,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
             <DrawerCustomItem title="Minha conta" navigation={navigation} focused={state.index === 8 ? true : false} />
             <DrawerCustomItem title="Preferências" navigation={navigation} focused={state.index === 9 ? true : false} />
             <DrawerCustomItem title="Termos de uso" navigation={navigation} focused={state.index === 10 ? true : false} />
+            <DrawerCustomItem title="Logout" navigation={navigation} />
         </ScrollView>
       </Block>
     </Block>
